@@ -10,11 +10,11 @@ class Registration extends React.Component{
     submitForm(event) {
         event.preventDefault();
         var data = new FormData(event.target);
-        data = JSON.stringify({
+        data = {
             name: data.get('name'),
             email: data.get('email'),
             password: data.get('password')
-        });
+        };
         userCreate(data);
     }
 
