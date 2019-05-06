@@ -3,6 +3,7 @@ import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
 import Registration from './Registration';
 import LogIn from './LogIn';
+import Protected from './Protected';
 
 const App = () => {
     return (
@@ -10,8 +11,9 @@ const App = () => {
         <Router history={ history }>
           <div>
             <Switch>
-              <Route path="/" exact component={LogIn} />
-              <Route path="/user/create" exact component={Registration} />
+              <Route path="/login" exact component={LogIn} />
+              <Route path="/register" exact component={Registration} />
+              <Route path="/" component={Protected} />
             </Switch>
           </div>
         </Router>

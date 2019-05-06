@@ -1,15 +1,18 @@
 import { combineReducers } from 'redux';
+import register from './auth.reducer';
 
-const INITIAL_STATE = {
-  name: '',
-  email: '',
-  password: ''
-};
+// const INITIAL_STATE = {
+//   name: '',
+//   email: '',
+//   password: ''
+// };
 
-const dataUser = (state = INITIAL_STATE, action) => {
+const dataUser = (state = {}, action) => {
     switch (action.type) {
         case 'CREATE_USER':
           return { ...state};
+        case 'USER_ACCESS':
+          return { ...state, ...action.payload};
         default:
           return state;
     }
@@ -17,4 +20,5 @@ const dataUser = (state = INITIAL_STATE, action) => {
 
 export default combineReducers({
     user: dataUser,
+    register
 });

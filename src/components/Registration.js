@@ -2,12 +2,13 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 
-import { userCreate } from '../actions'
+// import { userCreate } from '../actions'
+import { register } from '../actions/auth.thunk';
 import { CardStyle } from '../variables';
 
 class Registration extends React.Component{
 
-    submitForm(event) {
+    submitForm = (event) => {
         event.preventDefault();
         var data = new FormData(event.target);
         data = {
@@ -15,7 +16,9 @@ class Registration extends React.Component{
             email: data.get('email'),
             password: data.get('password')
         };
-        userCreate(data);
+        // userCreate(data);
+        console.log('data', data)
+        this.props.dispatch(register(data));
     }
 
     render(){
@@ -67,4 +70,10 @@ class Registration extends React.Component{
     }
 }
 
-export default connect(null, { userCreate })(Registration);
+const mapStateToProps = (state) => {
+  return {
+    
+  };
+}
+
+export default connect(mapStateToProps)(Registration);

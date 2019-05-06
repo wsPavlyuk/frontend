@@ -1,14 +1,21 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import { CardStyle } from '../variables';
+
+import { userAccess } from '../actions';
 
 class LogIn extends React.Component{
     submitForm(event) {
         event.preventDefault();
-        const data = new FormData(event.target);
-        console.log(data.get('password'));
-        console.log(data.get('email'));
+        var data = new FormData(event.target);
+        data = {
+          email: data.get('email'),
+          password: data.get('password')
+      };
+      userAccess(data).then((response) => console.log(response));
     }
     
     render(){
@@ -59,4 +66,8 @@ class LogIn extends React.Component{
     }
 }
 
-export default LogIn;
+const mapStateToProps = (state) => {
+  return { token: state.user };
+};
+
+export default connect (mapStateToProps, { userAccess })(LogIn);
