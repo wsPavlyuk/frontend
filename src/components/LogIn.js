@@ -2,23 +2,31 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { login } from '../actions/login.thunk';
 
 import { CardStyle } from '../variables';
 
-import { userAccess } from '../actions';
+// import { userAccess } from '../actions';
 
 class LogIn extends React.Component{
-    submitForm(event) {
+    submitForm = (event) => {
         event.preventDefault();
         var data = new FormData(event.target);
         data = {
           email: data.get('email'),
           password: data.get('password')
       };
-      userAccess(data).then((response) => console.log(response));
+
+      this.props.login(data);
+
+      //Save token and email in Local Storage
+      localStorage.setItem('token', this.props.token);
+      localStorage.setItem('email', this.props.email);    
     }
     
-    render(){
+    render() {
         return (
           <div style={CardStyle}>
             <h2 style={{ textAlign: "center" }}>
@@ -67,7 +75,16 @@ class LogIn extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  return { token: state.user };
+  return { 
+    token: state.login.token,
+    email: state.login.email,
+    error: state.login.error
+  };
 };
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ 
+    login
+  }, dispatch)
+}
 
-export default connect (mapStateToProps, { userAccess })(LogIn);
+export default connect (mapStateToProps, mapDispatchToProps)(LogIn);

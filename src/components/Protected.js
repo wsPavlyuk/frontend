@@ -10,7 +10,7 @@ class Protected extends React.Component {
     }
 
     // componentDidMount() {
-    //     checkLogin(state.user.token)
+    //     checkLogin(localStorage.getItem (token))
     //         .then(() => {
     //             this.setState({
     //                 isLoggedIn: true

@@ -71,9 +71,10 @@ class Registration extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.register);
   return {
-    
-  };
+      registration: state.register
+    };
 }
 
 export default connect(mapStateToProps)(Registration);
