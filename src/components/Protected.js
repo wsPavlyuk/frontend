@@ -2,24 +2,37 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import DisplayWeather from './DisplayWeather';
-// import checkLogin from '../actions';
+import { checkLogin } from '../actions/auth.thunk';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import history from '../history';
 
 class Protected extends React.Component {
     state = {
         isLoggedIn: false
     }
 
-    // componentDidMount() {
-    //     checkLogin(localStorage.getItem (token))
-    //         .then(() => {
-    //             this.setState({
-    //                 isLoggedIn: true
-    //             })
-    //         })
-    //         .catch(() => {
-    //             // redirect to login (browserhistoty)
-    //         })
-    // }
+    componentDidMount() {
+      if (localStorage.getItem('token')) {
+
+        this.props.checkLogin()
+            .then(() => {
+                console.log('Good');
+                this.setState({
+                    isLoggedIn: true
+                })
+            })
+            .catch(() => {
+              console.log('Bad')
+                // redirect to login (browserhistoty)
+              history.push('/login');   
+            })
+      } else {
+        alert(`${this.props.error}`);
+        history.push('/login');
+      }
+    }
 
     render() {
 
@@ -35,5 +48,18 @@ class Protected extends React.Component {
     }
 }
 
+const mapStateToProps = (state) => {
+  console.log(state.login);
+  return { 
+    token: state.login.token,
+    error: state.login.error
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ 
+    checkLogin
+  }, dispatch)
+}
 
-export default Protected;
+
+export default connect (mapStateToProps, mapDispatchToProps) (Protected);

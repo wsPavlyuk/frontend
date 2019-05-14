@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { login } from '../actions/login.thunk';
+import { login } from '../actions/auth.thunk';
 
 import { CardStyle } from '../variables';
 
+import history from '../history';
 // import { userAccess } from '../actions';
 
 class LogIn extends React.Component{
@@ -20,10 +21,22 @@ class LogIn extends React.Component{
       };
 
       this.props.login(data);
+      
+    }
 
-      //Save token and email in Local Storage
-      localStorage.setItem('token', this.props.token);
-      localStorage.setItem('email', this.props.email);    
+    componentDidMount() {
+      localStorage.clear();
+    }
+
+    componentDidUpdate() {
+      if (!this.props.token) {
+        alert(`${this.props.error}`);
+      } else {
+        //Save token and email in Local Storage
+        localStorage.setItem('token', this.props.token);
+        localStorage.setItem('email', this.props.email);
+        history.push('/weather');
+      }
     }
     
     render() {
@@ -65,7 +78,7 @@ class LogIn extends React.Component{
               </FormGroup>
             </Form>
             <div className="right menu">
-              <Link to="/user/create" className="item">
+              <Link to="/register" className="item">
                 Sign up
               </Link>
             </div>
@@ -75,6 +88,7 @@ class LogIn extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return { 
     token: state.login.token,
     email: state.login.email,

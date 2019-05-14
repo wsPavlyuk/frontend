@@ -1,6 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 
+import Navigation from './Navigation';
+
 class DisplayWeather extends React.Component {
 
   componentDidMount() {
@@ -72,14 +74,7 @@ class DisplayWeather extends React.Component {
   render() {
     return (
       <div>
-        <div id="locationField">
-          <input
-            id="autocomplete"
-            placeholder="Введите название города"
-            type="text"
-          />
-        </div>
-
+        <Navigation />
         <table className="table table-bordered">
           <thead>
             <tr>

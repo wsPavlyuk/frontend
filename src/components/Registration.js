@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 import { register } from '../actions/auth.thunk';
 import { CardStyle } from '../variables';
 
+import history from '../history';
+
 class Registration extends React.Component{
 
     submitForm = (event) => {
@@ -19,6 +21,10 @@ class Registration extends React.Component{
         // userCreate(data);
         console.log('data', data)
         this.props.dispatch(register(data));
+    }
+
+    componentDidUpdate() {
+      history.push('/login');    
     }
 
     render(){
