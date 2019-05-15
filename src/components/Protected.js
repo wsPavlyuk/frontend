@@ -1,7 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import Navigation from './Navigation';
 import DisplayWeather from './DisplayWeather';
+import Profile from './Profile';
 import { checkLogin } from '../actions/auth.thunk';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -39,11 +41,18 @@ class Protected extends React.Component {
         if (!this.state.isLoggedIn) return null;
 
         return (
-          <Switch>
-            <Route path="/weather" exact component={DisplayWeather} />
-            <Route path="/history" exact component={() => 'history'} />
-            <Route path="/profile" exact component={() => 'profile'} />
-          </Switch>
+          <React.Fragment>
+            <Navigation />
+            <Switch>
+              <Route path="/weather" exact component={DisplayWeather} />
+              <Route
+                path="/history"
+                exact
+                component={() => "history"}
+              />
+              <Route path="/profile" exact component={Profile} />
+            </Switch>
+          </React.Fragment>
         );
     }
 }

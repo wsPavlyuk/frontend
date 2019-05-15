@@ -19,7 +19,6 @@ class LogIn extends React.Component{
           email: data.get('email'),
           password: data.get('password')
       };
-
       this.props.login(data);
       
     }
