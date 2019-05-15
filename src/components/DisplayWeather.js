@@ -10,7 +10,7 @@ class DisplayWeather extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { data: {}, latitude: '', longitude: '' };
+    this.state = { data: {}, city: '', latitude: 0, longitude: 0 };
   }
   
   getHistory(latitude, longitude) {
@@ -22,7 +22,13 @@ class DisplayWeather extends React.Component {
     xhr.open("GET", url, false);
     xhr.send();
     var data = JSON.parse(xhr.responseText);
-    this.setState({ data });
+    console.log(data);
+    this.setState({ data, latitude: lat, longitude: lng });
+    this.props.saveHistory({
+      createdAt: new Date(),
+      location: { address: this.state.city, latitude: this.state.latitude, longitude: this.state.longitude },
+      weather: this.state.data.list
+    });
   }
 
   render() {
@@ -31,6 +37,7 @@ class DisplayWeather extends React.Component {
         <Autocomplete
           style={{ width: "100%", borderRadius: "4px" }}
           onPlaceSelected={place => {
+            console.log(place);
             if (!place.geometry) {
               window.alert(
                 "No details available for input: '" +
@@ -40,6 +47,7 @@ class DisplayWeather extends React.Component {
               this.setState({ data: {}, latitude: '', longitude: '' });
               return;
             }
+            this.setState({ city: place.formatted_address});
             this.getHistory(
               place.geometry.location.lat(),
               place.geometry.location.lng()
@@ -54,7 +62,6 @@ class DisplayWeather extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return { 
 
   };

@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Navigation from './Navigation';
 import DisplayWeather from './DisplayWeather';
+import History from './History';
 import Profile from './Profile';
 import { checkLogin } from '../actions/auth.thunk';
 import { bindActionCreators } from 'redux';
@@ -48,7 +49,7 @@ class Protected extends React.Component {
               <Route
                 path="/history"
                 exact
-                component={() => "history"}
+                component={ History }
               />
               <Route path="/profile" exact component={Profile} />
             </Switch>
@@ -58,7 +59,7 @@ class Protected extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.login);
+  // console.log(state.login);
   return { 
     token: state.login.token,
     error: state.login.error
@@ -71,4 +72,4 @@ const mapDispatchToProps = dispatch => {
 }
 
 
-export default connect (mapStateToProps, mapDispatchToProps) (Protected);
+export default connect (mapStateToProps, mapDispatchToProps)(Protected);
