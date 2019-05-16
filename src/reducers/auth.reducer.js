@@ -3,7 +3,7 @@ export const register = (state = { loading: false, error: null }, action) => {
         case 'REGISTER_SUCCESS':
           return { ...state, loading: true, error: null};
         case 'REGISTER_FAILURE':
-          console.log(action.payload);
+          // console.log(action.payload);
           return { ...state, error: action.payload.response.statusText, loading: false };
         default:
           return state;
@@ -15,7 +15,7 @@ export const check = (state = { checkin: false }, action) => {
         case 'CHECK_SUCCESS':
           return { ...state, checkin: true };
         case 'CHECK_FAILURE':
-          console.log(action.payload);
+          // console.log(action.payload);
           return { ...state, checkin: false };
         default:
           return state;

@@ -7,6 +7,7 @@ import HistoryList from './HistoryList';
 class History extends React.Component {
 
     componentDidMount() {
+        // console.log('GETTING HISTORY')
         this.props.getHistory();
     }
 
@@ -20,9 +21,9 @@ class History extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.takenHistory);
+    // console.log(state.historyList);
     return {
-        histories: state.takenHistory
+        histories: state.historyList
     };
   };
   const mapDispatchToProps = dispatch => {

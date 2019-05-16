@@ -16,8 +16,8 @@ import database from '../api/database';
 export const register = (formValues) => {
     return async dispatch => {
         try {
-            console.log('formValues', formValues);
-            console.log('dispatch', dispatch)
+            // console.log('formValues', formValues);
+            // console.log('dispatch', dispatch)
             dispatch(registerRequest());
             const response = await database.post('/api/users/create', formValues);
             dispatch(registerSuccess(response.data))
@@ -30,7 +30,7 @@ export const register = (formValues) => {
 export const checkLogin = () => {
     return async dispatch => {
         try{
-            console.log('dispatch', dispatch)
+            // console.log('dispatch', dispatch)
             dispatch(checkRequest());
             const response = await database.get('/api/users/check');
             dispatch(checkSuccess(response.data))
@@ -43,11 +43,11 @@ export const checkLogin = () => {
 export const login = (formValues) => {
     return async dispatch => {
         try {
-            console.log('formValues', formValues);
-            console.log('dispatch', dispatch)
+            // console.log('formValues', formValues);
+            // console.log('dispatch', dispatch)
             dispatch(loginRequest());
             const response = await database.post('/api/users', formValues);
-            console.log(response);
+            // console.log(response);
             dispatch(loginSuccess(response.data))
         } catch (err) {
             dispatch(loginFailure(err))

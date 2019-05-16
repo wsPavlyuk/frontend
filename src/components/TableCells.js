@@ -1,17 +1,5 @@
 import React from 'react';
-
-const getDateForForecast = (dateForecast) => {
-    dateForecast = dateForecast.split(" ");
-    let dateDMY = dateForecast[0]
-      .split("-")
-      .reverse()
-      .join(".");
-    let time = dateForecast[1]
-      .split(":")
-      .splice(0, 2)
-      .join(":");
-    return `${dateDMY} ${time}`;
-  }
+import { getDateForForecast } from '../utilities';
 
 const TableCells = (props) => {
     if (props.list === undefined) {

@@ -87,7 +87,7 @@ class LogIn extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return { 
     token: state.login.token,
     email: state.login.email,

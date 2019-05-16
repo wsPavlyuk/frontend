@@ -1,8 +1,8 @@
 import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
-import Registration from './Registration';
-import LogIn from './LogIn';
+import Registration from '../components/Registration';
+import LogIn from '../components/LogIn';
 import Protected from './Protected';
 
 const App = () => {

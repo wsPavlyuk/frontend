@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Navigation from './Navigation';
-import DisplayWeather from './DisplayWeather';
-import History from './History';
-import HistoryDetails from './HistoryDetails';
-import Profile from './Profile';
+import Navigation from '../components/Navigation';
+import DisplayWeather from '../components/DisplayWeather';
+import History from '../components/History';
+import HistoryDetails from '../components/HistoryDetails';
+import Profile from '../components/Profile';
 import { checkLogin } from '../actions/auth.thunk';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -13,34 +13,35 @@ import { connect } from 'react-redux';
 import history from '../history';
 
 class Protected extends React.Component {
-    state = {
-        isLoggedIn: false
-    }
+    // state = {
+    //     isLoggedIn: false
+    // }
 
     componentDidMount() {
       if (localStorage.getItem('token')) {
 
         this.props.checkLogin()
             .then(() => {
-                console.log('Good');
-                this.setState({
-                    isLoggedIn: true
-                })
+              history.push('/weather');
+                // console.log('Good');
+                // this.setState({
+                //     isLoggedIn: true
+                // })
             })
             .catch(() => {
-              console.log('Bad')
+              // console.log('Bad')
                 // redirect to login (browserhistoty)
               history.push('/login');   
             })
       } else {
-        alert(`${this.props.error}`);
+        // alert(`${this.props.error}`);
         history.push('/login');
       }
     }
 
     render() {
 
-        if (!this.state.isLoggedIn) return null;
+        // if (!this.state.isLoggedIn) return null;
 
         return (
           <React.Fragment>
@@ -57,7 +58,7 @@ class Protected extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log(state.login);
+  // // console.log(state.login);
   return { 
     token: state.login.token,
     error: state.login.error

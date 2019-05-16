@@ -19,7 +19,7 @@ class Registration extends React.Component{
             password: data.get('password')
         };
         // userCreate(data);
-        console.log('data', data)
+        // console.log('data', data)
         this.props.dispatch(register(data));
     }
 
@@ -77,7 +77,7 @@ class Registration extends React.Component{
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.register);
+  // console.log(state.register);
   return {
       registration: state.register
     };

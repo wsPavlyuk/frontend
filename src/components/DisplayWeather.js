@@ -7,13 +7,21 @@ import Autocomplete from 'react-google-autocomplete';
 import Table from './Table';
 
 class DisplayWeather extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = { data: {}, city: '', latitude: 0, longitude: 0 };
+  getLngLat(place) {
+    // console.log(place);
+    if (!place.geometry) {
+      window.alert("No details available for input: '" + place.name + "'");
+      return;
+    }
+    this.setState({ city: place.formatted_address });
+    this.getWeather(
+      place.geometry.location.lat(),
+      place.geometry.location.lng(),
+      place.formatted_address
+    );
   }
-  
-  getHistory(latitude, longitude) {
+
+  getWeather(latitude, longitude, city) {
     var xhr = new XMLHttpRequest();
     var lat = latitude;
     var lng = longitude;
@@ -22,40 +30,35 @@ class DisplayWeather extends React.Component {
     xhr.open("GET", url, false);
     xhr.send();
     var data = JSON.parse(xhr.responseText);
-    console.log(data);
-    this.setState({ data, latitude: lat, longitude: lng });
+    // console.log(data);
     this.props.saveHistory({
       createdAt: new Date(),
-      location: { address: this.state.city, latitude: this.state.latitude, longitude: this.state.longitude },
-      weather: this.state.data.list
+      location: { address: city, latitude, longitude },
+      weather: data.list,
     });
   }
 
+  showTable() {
+    if (this.props.weatherData.location !== undefined) {
+      return (
+        <Table
+          weather={this.props.weatherData.weather}
+          header={this.props.weatherData.location.address}
+        />
+      );
+    }
+  }
+
   render() {
+    // console.log(this.props.weatherData.weather);
     return (
       <React.Fragment>
         <Autocomplete
           style={{ width: "100%", borderRadius: "4px" }}
-          onPlaceSelected={place => {
-            console.log(place);
-            if (!place.geometry) {
-              window.alert(
-                "No details available for input: '" +
-                  place.name +
-                  "'"
-              );
-              this.setState({ data: {}, latitude: '', longitude: '' });
-              return;
-            }
-            this.setState({ city: place.formatted_address});
-            this.getHistory(
-              place.geometry.location.lat(),
-              place.geometry.location.lng()
-            );
-          }}
+          onPlaceSelected={place => this.getLngLat(place)}
           types={["(regions)"]}
         />
-        <Table weather={ this.state.data }/>
+        <div>{ this.showTable() }</div>
       </React.Fragment>
     );
   }
@@ -63,7 +66,7 @@ class DisplayWeather extends React.Component {
 
 const mapStateToProps = (state) => {
   return { 
-    isHistorySaved: state.history
+    weatherData: state.weather
   };
 };
 const mapDispatchToProps = dispatch => {

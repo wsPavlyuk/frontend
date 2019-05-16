@@ -2,8 +2,10 @@ import { combineReducers } from 'redux';
 import { register } from './auth.reducer';
 import { login } from './auth.reducer';
 import { check } from './auth.reducer';
-import { history } from './history.reducer';
-import { takenHistory } from './history.reducer';
+
+import { weather } from './history.reducer';
+import { historyList } from './history.reducer';
+import { historyDetails } from './history.reducer';
 
 
 
@@ -11,6 +13,7 @@ export default combineReducers({
     register,
     login,
     check,
-    history,
-    takenHistory
+    weather,
+    historyList,
+    historyDetails
 });

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-var token = localStorage.getItem('token')
+// console.log('token', token)
 
 const database = axios.create({
     baseURL: 'http://localhost:5000',
@@ -12,10 +12,11 @@ const database = axios.create({
 // Add a request interceptor
 database.interceptors.request.use(function (config) {
   // Do something before request is sent
+  var token = localStorage.getItem('token')
   if (token) {
     config.headers.Authorization = token;
   }
-
+  
   return config;
 }, function (error) {
   // Do something with request error
