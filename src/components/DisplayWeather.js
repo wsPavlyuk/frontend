@@ -63,7 +63,7 @@ class DisplayWeather extends React.Component {
 
 const mapStateToProps = (state) => {
   return { 
-
+    isHistorySaved: state.history
   };
 };
 const mapDispatchToProps = dispatch => {

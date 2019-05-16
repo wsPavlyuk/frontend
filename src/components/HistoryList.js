@@ -8,7 +8,7 @@ const HistoryList = (props) => {
 
         return (
           <li key={item.createdAt}>
-            <Link to={{ pathname: `/history/${item.userId}` }}>
+            <Link to={{ pathname: `/history/${item.userId}`, state:{details: item.weather, header: item.location.address} }}>
               Requested {item.location.address} by user with id: {item.userId} at { item.createdAt }
             </Link>
           </li>

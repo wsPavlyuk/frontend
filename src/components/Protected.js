@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Navigation from './Navigation';
 import DisplayWeather from './DisplayWeather';
 import History from './History';
+import HistoryDetails from './HistoryDetails';
 import Profile from './Profile';
 import { checkLogin } from '../actions/auth.thunk';
 import { bindActionCreators } from 'redux';
@@ -46,11 +47,8 @@ class Protected extends React.Component {
             <Navigation />
             <Switch>
               <Route path="/weather" exact component={DisplayWeather} />
-              <Route
-                path="/history"
-                exact
-                component={ History }
-              />
+              <Route path="/history" exact component={ History } />
+              <Route path="/history/:id" exact component={ HistoryDetails } />
               <Route path="/profile" exact component={Profile} />
             </Switch>
           </React.Fragment>

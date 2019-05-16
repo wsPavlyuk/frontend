@@ -1,10 +1,10 @@
 import React from 'react';
 import TableCells from './TableCells';
 
-class Table extends React.Component {
+class HistoryDetails extends React.Component {
 
     renderTable() {
-        if(this.props.weather.list !== undefined) {
+        if(this.props.location.state.details[0].main.temp !== undefined) {
             return (
                 <table className="table table-bordered" style={{marginTop: "20px"}}>
                   <thead>
@@ -15,16 +15,21 @@ class Table extends React.Component {
                     </tr>
                   </thead>
                   <tbody>
-                      <TableCells list={ this.props.weather.list } />
+                      <TableCells list={ this.props.location.state.details } />
                   </tbody>
                 </table>
             );
         }
     }
-    
+
     render() {
-        return <div>{ this.renderTable() }</div>;
+        return (
+          <React.Fragment>
+            <h3 style={{textAlign: 'center'}}>{ this.props.location.state.header }</h3>
+            <div>{this.renderTable()}</div>
+          </React.Fragment>
+        );
     }
 }
 
-export default Table;
+export default HistoryDetails;
