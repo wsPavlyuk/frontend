@@ -9,7 +9,6 @@ import { login } from '../actions/auth.thunk';
 import { CardStyle } from '../variables';
 
 import history from '../history';
-// import { userAccess } from '../actions';
 
 class LogIn extends React.Component{
     submitForm = (event) => {
